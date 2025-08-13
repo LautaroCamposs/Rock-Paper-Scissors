@@ -1,3 +1,6 @@
+
+
+
 let humanScore = 0;
 let computerScore = 0;
 // rock's value is 0, scissors' value is 1, paper's value is 2
@@ -7,16 +10,10 @@ function getComputerChoice(){
     return Math.floor((Math.random() * 3))
 }
 
-function getHumanChoice() {
-    let choice = prompt("Make your choice: ");
-    let char = choice.charAt(0).toLowerCase();
-    switch(char){
-        case "r":{return 0};
-        case "s": {return 1};
-        case "p": {return 2};
-    }
-
+function getHumanChoice(choice) {
+    return choice;
 }
+
 
 
 function playRound(humanSelection, computerSelection) {
@@ -51,9 +48,7 @@ function playRound(humanSelection, computerSelection) {
             computerScore +=1;
             break;
         }
-        case(humanSelection == 0 && computerelection == 0):
-        case(humanSelection == 1 && computerSelection == 1):
-        case(humanSelection == 2 && computerSelection == 2): {
+        case(humanSelection == computerSelection):{
             console.log("Empate");
             break;
         }
@@ -72,4 +67,37 @@ function playGame(){
     computerScore = 0;
 }
 
-playGame();
+const btnRock = document.querySelector("#rock");
+const btnPaper = document.querySelector("#paper");
+const btnScissors = document.querySelector("#scissors");
+const result = document.createElement("div");
+const body = document.querySelector("body");
+body.appendChild(result);
+
+btnRock.addEventListener('click',() => {
+    playRound(getHumanChoice(0),getComputerChoice());
+    result.textContent = `Tu puntuacion es ${humanScore} y la de la computadora ${computerScore}`;
+
+
+})
+btnPaper.addEventListener('click',() => {
+    playRound(getHumanChoice(1),getComputerChoice());
+    result.textContent = `Tu puntuacion es ${humanScore} y la de la computadora ${computerScore}`;
+
+
+})
+
+btnScissors.addEventListener('click',() => {
+    playRound(getHumanChoice(2),getComputerChoice());
+    result.textContent = `Tu puntuacion es ${humanScore} y la de la computadora ${computerScore}`;
+
+
+})
+
+
+const reset = document.querySelector("#reset");
+reset.addEventListener('click', () => {
+    humanScore = 0;
+    computerScore = 0;
+    result.textContent = "se acaban de resetear los puntajes.";
+});
